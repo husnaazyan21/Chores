@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chore Calendar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('service-worker.js');
+      });
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>🗓 Chore Calendar</h1>
+    <nav>
+      <button id="prevMonthBtn">◀</button>
+      <span id="monthYear"></span>
+      <button id="nextMonthBtn">▶</button>
+    </nav>
+    <div id="viewSwitch">
+      <button id="dayViewBtn">Day</button>
+      <button id="weekViewBtn">Week</button>
+      <button id="monthViewBtn" class="active">Month</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="calendarSection">
+      <div id="calendar"></div>
+    </section>
+    <section id="choreSection">
+      <h2>Chores for <span id="selectedDateLabel"></span></h2>
+      <ul id="choreList"></ul>
+      <button id="addChoreBtn">+ Add Chore</button>
+    </section>
+    <section id="choresPreviewSection">
+      <h2>Chores Preview for <span id="previewDateLabel"></span></h2>
+      <div id="choresPreview"></div>
+    </section>
+  </main>
+
+  <!-- Modal for adding/editing chores -->
+  <div id="choreModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeModalBtn">&times;</span>
+      <h3 id="modalTitle">Add Chore</h3>
+      <form id="choreForm">
+        <label>
+          Chore Name:
+          <input type="text" id="choreName" required />
+        </label>
+        <label>
+          Category:
+          <select id="choreCategory"></select>
+          <button type="button" id="addCategoryBtn">+ Category</button>
+        </label>
+        <label>
+          Icon:
+          <select id="choreIcon"></select>
+        </label>
+        <label>
+          Priority:
+          <select id="chorePriority">
+            <option value="high">High 🔴</option>
+            <option value="medium">Medium 🟡</option>
+            <option value="low">Low 🟢</option>
+          </select>
+        </label>
+        <label>
+          Date & Time:
+          <input type="date" id="choreDate" required />
+          <input type="time" id="choreTime" required />
+        </label>
+        <label>
+          Repeat:
+          <select id="choreRepeat">
+            <option value="none">None</option>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+          </select>
+        </label>
+        <div class="modal-actions">
+          <button type="submit" id="saveChoreBtn">Save</button>
+          <button type="button" id="cancelChoreBtn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
